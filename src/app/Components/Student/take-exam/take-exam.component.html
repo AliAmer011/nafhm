@@ -1,0 +1,176 @@
+<div *ngIf="!isFinish">
+    <div class="MCQuestions"
+        style="background-color: #f4f4f4;margin-top: 20px;padding-left: 30px;padding: 20px;margin: 15px;" id="MC">
+        <div>
+
+
+
+            <div class="form-group" *ngFor="let question of mcq;let i= index;">
+                <div [hidden]="!(i == questionMCQCounter && isMcq)">
+                    <div class="row">
+                        <div class="" style="font-weight: 700;
+                    color: white;
+                    background-color: black;
+                    width: 25px;
+                    height: 25px;
+                    border-radius: 50%;
+                    text-align: center;
+                    margin-left: 20px;
+                ">{{i + 1}}
+                        </div>
+                        <!-- <label for="" style="border: 1px solid lightgray" id="question + i">{{questionCounter}}</label>-->&nbsp;&nbsp;&nbsp;
+                        <span
+                            style="font-weight: 400;line-height: 1.5em;font:100%/1.5 Source Sans Pro,Arial,Helvetica Neue,Helvetica,'sans-serif';">{{question.Question.QuestionContent}}</span>
+                        <!--<input  type="text" [value]="curQuestion.Question.QuestionContent" disabled
+                        placeholder="Input your question title here" class="form-control"
+                         style="max-width: 90%;">-->
+
+
+                    </div>
+
+                    <div class="row" id="option1" class="" *ngFor="let option of question.Choices"
+                        style="padding-left: 50px;align-items: center;padding-top: 10px;">
+
+                        <label class=""
+                            style="background-color: rgb(250, 250, 250);border: 1px solid lightgray;border-radius: 8px;padding: 8px 8px 8px 48px;width: 480px;">
+                            <input type="radio" class="form-check-input "
+                                (click)="chooseAns(questionMCQCounter,option.IsTrue)" [name]="i"
+                                style=" width: 20px;height: 20px;margin-top: 2px;">
+                            <span style="padding-left: 10px;">{{option.Choice}}</span>
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="form-group" *ngFor="let q of tf;let i= index">
+                <div  [hidden]="!(i == questionTFCounter && !isMcq)">
+                    <div>
+                        <div class="" style="font-weight: 700;
+                    color: white;
+                    background-color: black;
+                    width: 25px;
+                    height: 25px;
+                    border-radius: 50%;
+                    text-align: center;
+                    margin-left: 20px;
+                    display: inline-block;
+                ">{{i + 1}}</div>
+                        <!-- <label for="" style="border: 1px solid lightgray" id="question + i">{{questionCounter}}</label>-->&nbsp;&nbsp;&nbsp;
+                        <span
+                            style="font-weight: 400;line-height: 1.5em;font:100%/1.5 Source Sans Pro,Arial,Helvetica Neue,Helvetica,'sans-serif';">{{q.Question.QuestionContent}}</span>
+                        <!--<input  type="text" [value]="curQuestion.Question.QuestionContent" disabled
+                        placeholder="Input your question title here" class="form-control"
+                         style="max-width: 90%;">-->
+
+                    </div>
+
+                    <!--<div class="row" style="padding-bottom: 25px;padding-left: 50px;align-items: center;padding-top: 25px;">
+                    <input type="radio" class="form-check-input" (click)=""
+                        [name]="i" style="width: 20px;height: 20px;">
+                    <input type="text" class="form-control" value="True" disabled style="max-width: 60%;">
+                </div>-->
+
+                <br>
+                    <div class="" style="background-color: rgb(250, 250, 250);border: 1px solid lightgray;border-radius: 8px;padding: 8px 8px 8px 48px;width: 480px;
+                        margin-top: 20px;margin-left: 45px;">
+                        <input type="radio" class="form-check-input" (click)="chooseAnsTF(i,true ,q.CorrectAnswer)"
+                            [name]="i" style=" width: 20px;height: 20px;margin-top: 2px;">
+                        <span style="padding-left: 10px;">True</span>
+                    </div>
+
+
+                    <!--<div class="row" style="padding-bottom: 25px;padding-left: 50px;align-items: center;padding-top: 25px;">
+                    <input type="radio" class="form-check-input" (click)="chooseAnsTF(i,false,q.CorrectAnswer)"
+                        [name]="i" style="width: 20px;height: 20px;">
+                    <input type="text" class="form-control" value="False" disabled style="max-width: 60%;">
+                </div>-->
+
+                    <div style="background-color: rgb(250, 250, 250);border: 1px solid lightgray;border-radius: 8px;padding: 8px 8px 8px 48px;width: 480px;
+                        margin-top: 20px;margin-left: 45px;">
+                        <input type="radio" class="form-check-input" (click)="chooseAnsTF(i,false ,q.CorrectAnswer)"
+                            [name]="i" style=" width: 20px;height: 20px;margin-top: 2px;">
+                        <span style="padding-left: 10px;">False</span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-outline-info float-right" (click)="next(); " *ngIf="questionTFCounter != tf.length-1">
+        Next >></button>
+
+
+    <button type="button" id="btnPre" class="btn btn-outline-info float-left" (click)="pre()"
+        [disabled]="questionMCQCounter == 0">
+        << Pre </button>
+
+            <button type="button" id="btnFinish" class="btn btn-outline-info float-right" (click)="getTotalDegree()"
+                *ngIf="questionTFCounter == tf.length-1">
+                Finish </button>
+
+
+</div>
+
+<div *ngIf="isFinish">
+
+    <div class="MCQuestions"
+        style="background-color: #f4f4f4;margin-top: 20px;padding-left: 30px;padding: 20px;margin: 15px;" id="MC">
+        <div>
+            <div class="alert alert-primary" role="alert">
+                Total correct answer is {{totalDegree}}
+            </div>
+
+
+
+            <div class="form-group" *ngFor="let question of mcq;let i= index;"
+                style="border-bottom:  1px  dashed lightblue;">
+                <div style="font-size: 18px;color: #3b5a95;margin: 15px 0 15px 0;">Question #{{i + 1}}</div>
+                <div class="row">
+                    <label for="" style="margin-left: 20px;border: 1px solid lightgray"
+                        id="question + i">{{i+1}}</label>&nbsp;&nbsp;&nbsp;
+                    <input type="text" [value]="question.Question.QuestionContent" disabled
+                        placeholder="Input your question title here" class="form-control" style="max-width: 90%;">
+
+
+                </div>
+
+                <div class="row" id="option1" *ngFor="let option of question.Choices"
+                    style="padding-left: 50px;align-items: center;padding-top: 25px;">
+                    <!--<input type="radio" class="form-check-input" (click)="chooseAns(i,option.IsTrue)"  [name]="i" 
+                                        style="width: 20px;height: 20px;">-->
+
+                    <div *ngIf="option.IsTrue">
+                        <span style="font-size: 18px;color: #3b5a95;margin: 15px 0 15px 0;"> Correct Answer
+                            : </span>
+                        <span style="font-size: 15px;color: #2590e3;">{{option.Choice}} </span>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="form-group" style="padding-bottom: px;padding-top: 20px;border-bottom: 1px dashed lightblue;"
+                *ngFor="let q of tf;let i= index">
+                <div class="row" style="padding-bottom: 20px;">
+                    <label for=""
+                        style="margin-left: 20px;border: 1px solid lightgray">{{i+3}}</label>&nbsp;&nbsp;&nbsp;
+                    <input type="text" [value]="q.Question.QuestionContent" disabled
+                        placeholder="Input your question title here" class="form-control" style="max-width: 90%;">
+
+                </div>
+
+                <div style="margin-left: 25px;">
+                    <span style="font-size: 18px;color: #3b5a95;margin: 15px 0 15px 0;"> Correct Answer
+                        : </span>
+                    <span style="font-size: 15px;color: #2590e3;">{{q.CorrectAnswer}} </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

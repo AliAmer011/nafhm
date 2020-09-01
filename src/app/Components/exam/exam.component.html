@@ -1,0 +1,227 @@
+<div class="row">
+    <div class="col-lg-2">
+
+    </div>
+
+    <div class="col-lg-8">
+
+        <div class="questions">
+
+            <div>
+                <ul class="nav nav-tabs" style="width:100%;border-bottom: none;">
+                    <div class="row" style="width:100%;margin-left: 0px;">
+
+                        <div class="col-lg-6" style="width:100%;padding:10px;text-align: center;
+                        height: 64px;color: #5f7d95;font-size: 22px;font-weight: 500;text-align: center;
+                        border-top: 3px solid #008272;">
+
+                            <li class="active"><a href="#" style="font-size: 22px;">Questions</a></li>
+                        </div>
+                        <div class="col-lg-6"
+                            style="width:100%;padding:10px;text-align: center;box-shadow: inset 0 0 30px rgba(34,34,34,0.25);
+                        background-color: rgba(248,250,251,0.5);height: 64px;color: #5f7d95;font-size: 22px;font-weight: 500;text-align: center;">
+                            <li><a href="#" style="font-size: 22px;">Responses</a></li>
+                        </div>
+                    </div>
+                </ul>
+
+                <!-- Multi Choice Question -->
+                <div id="questions" >
+                    <div class="MCQuestions "
+                        style="background-color: #f4f4f4;margin-top: 20px;padding-left: 30px;padding: 20px;margin: 15px;display: none;"
+                        id="MC">
+                        <div class="border "> 
+                            <form style="padding: 20px;" [formGroup]="ChoiseQues" (ngSubmit)="addChoiseQ()">
+
+                                <div class="form-group">
+                                    <div class="row " >
+                                        <label for="" style="margin-left: 20px;"> 1 . </label>&nbsp;&nbsp;&nbsp;
+                                        <input [(ngModel)]="mcq.Question.QuestionContent" type="text"
+                                            placeholder="Input your question title here" class="form-control w-75"
+                                            formControlName="QuestionContent" style="max-width: 90%;">
+
+                                            <input type="button" *ngIf="IsSelected" style="margin-left: 20px;" class="btn btn-outline-info" (click)="Show()" value="rest">
+
+                                    </div>
+
+                                    <div class="row" id="option1"
+                                        style="padding-bottom: 25px;padding-left: 50px;align-items: center;padding-top: 25px;">
+                                        <i class="far fa-circle" style="color: lightgray;"></i>&nbsp;&nbsp;&nbsp;
+                                        <input [(ngModel)]="mcq.Choices[0].choice" type="text" class="form-control" formControlName="ch1"
+                                            style="max-width: 60%;" placeholder="option 1">
+
+                                            <select  (change)="Hide()" *ngIf="!IsSelected" style="width: 15%; margin-left: 20px;" class="form-control" [(ngModel)]="mcq.Choices[0].IsTrue"  formControlName="ch11"> 
+                                                <option value="true">true </option>
+                                                <option value="false">false</option>
+                                             </select> 
+                                    </div>
+
+                                    <div class="row" id="option2"
+                                        style="padding-bottom: 25px;padding-left: 50px;align-items: center;">
+                                        <i class="far fa-circle" style="color: lightgray;"></i>&nbsp;&nbsp;&nbsp;
+                                        <input [(ngModel)]="mcq.Choices[1].choice" type="text" class="form-control" formControlName="ch2"
+                                            style="max-width: 60%;" placeholder="option 2">
+
+                                            <select  (change)="Hide()" *ngIf="!IsSelected" class="form-control" [(ngModel)]="mcq.Choices[1].IsTrue" style="width: 15%; margin-left: 20px;" formControlName="ch12"> 
+                                                <option value="true">true </option>
+                                                <option value="false">false</option>
+                                             </select> 
+                                    </div>
+
+                                    <div class="row" id="option3"
+                                        style="padding-bottom: 25px;padding-left: 50px;align-items: center;display: none;">
+                                        <i class="far fa-circle" style="color: lightgray;"></i>&nbsp;&nbsp;&nbsp;
+                                        <input [(ngModel)]="mcq.Choices[2].choice" type="text" class="form-control" formControlName="ch3"
+                                            style="max-width: 60%;" placeholder="option 2">
+
+                                            <select (change)="Hide()" *ngIf="!IsSelected" class="form-control" [(ngModel)]="mcq.Choices[2].IsTrue" style="width: 15%; margin-left: 20px;" formControlName="ch13"> 
+                                                <option value="true">true </option>
+                                                <option value="false">false</option>
+                                             </select> 
+                                    </div>
+
+                                    <!---->
+                                    <div class="row " id="option4"
+                                        style="padding-bottom: 25px;padding-left: 50px;align-items: center;display: none;">
+                                        <i class="far fa-circle" style="color: lightgray;"></i>&nbsp;&nbsp;&nbsp;
+                                        <input [(ngModel)]="mcq.Choices[3].choice" type="text" class="form-control" formControlName="ch4"
+                                            style="max-width: 60%;" placeholder="option 2">
+
+                                            <select (change)="Hide()" *ngIf="!IsSelected" class="form-control" [(ngModel)]="mcq.Choices[3].IsTrue" style="width: 15%; margin-left: 20px;" formControlName="ch14"> 
+                                                <option value="true">true </option>
+                                                <option value="false">false</option>
+                                             </select> 
+                                    </div>
+
+                                    <div class="row" id="option5"
+                                        style="padding-bottom: 25px;padding-left: 50px;align-items: center;display: none;">
+                                        <i class="far fa-circle" style="color: lightgray;"></i>&nbsp;&nbsp;&nbsp;
+                                        <input [(ngModel)]="mcq.Choices[4].choice" type="text" class="form-control" formControlName="ch5"
+                                            style="max-width: 60%;" placeholder="option 2">
+
+                                            <select (change)="Hide()" *ngIf="!IsSelected" class="form-control" [(ngModel)]="mcq.Choices[4].IsTrue" style="width: 15%; margin-left: 20px;" formControlName="ch15"> 
+                                                <option value="true">true </option>
+                                                <option value="false">false</option>
+                                             </select> 
+                                    </div>
+                                    <div class="row" id="option6"
+                                        style="padding-bottom: 25px;padding-left: 50px;align-items: center;display: none;">
+                                        <i class="far fa-circle" style="color: lightgray;"></i>&nbsp;&nbsp;&nbsp;
+                                        <input [(ngModel)]="mcq.Choices[5].choice" type="text" class="form-control" formControlName="ch6"
+                                            style="max-width: 60%;" placeholder="option 2">
+
+                                            <select (change)="Hide()" *ngIf="!IsSelected" class="form-control" [(ngModel)]="mcq.Choices[5].IsTrue" style="width: 15%; margin-left: 20px;" formControlName="ch16"> 
+                                                <option value="true">true </option>
+                                                <option value="false">false</option>
+                                             </select> 
+                                    </div>
+
+                                    <div class="d-flex justify-content-around">
+                                        <button type="button" class="btn btn-outline-info" (click)="addnewoption()">+
+                                            Add Option</button>
+                                            <button class="btn btn-outline-info" type="submit">Add MCQ</button>
+
+                                    </div>
+
+                                    <!-- <hr>
+                                    <div class="row">
+                                        <span style="margin-left: 20px;"> Points: </span> &nbsp;&nbsp; <input
+                                            type="text" class="form-control" style="max-width: 35px;">
+
+                                    </div> -->
+
+                                  
+
+                                </div>
+                            </form>
+                        </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class=" border " 
+                        style="background-color: #f4f4f4;margin-top: 20px;padding-left: 30px;padding: 20px;margin: 15px;display: none;"
+                        id="TF">
+                        <div>
+             <form [formGroup]="TFQues" (ngSubmit)="addTFQ()">
+    
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="" style="margin-left: 20px;"> 6 . </label>&nbsp;&nbsp;&nbsp;
+                                    <input  [(ngModel)]="TFQ.Question.QuestionContent" type="text" placeholder="Input your question title here" class="form-control"
+                                    formControlName="TFQuestionContent"    style="max-width: 70%;">
+                                    
+                                </div>
+    
+                        
+    
+                                 <div class="row"   style="margin-top:25px;padding-bottom: 25px;padding-left: 50px;align-items: center">
+                                    <i class="far fa-circle" style="color: lightgray;"></i>&nbsp;&nbsp;&nbsp; 
+                                    <select class="form-control" [(ngModel)]="TFQ.CorrectAnswer" style="max-width: 30%;" formControlName="CorrectAnswer"> 
+                                        <option value="true">true </option>
+                                        <option value="false">false</option>
+                                     </select> 
+
+                                     <button  style="margin-left: 50px;" class="btn btn-outline-info" type="submit">Create</button>
+
+                                </div>
+                                
+                            </div>
+             </form>
+                        </div>
+                    </div></div>
+
+
+
+
+                </div>
+
+
+
+                <div style="background-color: #008272;margin-top: 20px;margin: 20px;">
+
+                    <span style="font-size: 28px;width: 30px;
+                display: inline-block;text-align: center;color: white;cursor: pointer;" (click)="toggle()">+</span>
+
+                    <span *ngIf="!isExpand" style="font-size: 20px;
+                display: inline-block;text-align: center;color: white;cursor: pointer;" (click)="toggle()">Add
+                        New</span>
+
+                    <div class="questionTypes" *ngIf="isExpand">
+                        <button type="button" class="btn btn-light" (click)="AddNewQuestion()"><i
+                                class="far fa-dot-circle"></i>
+                            <span class="txt">
+                                Choice
+                            </span>
+                        </button>
+                        <button type="button" class="btn btn-light" (click)="AddTFQuestion()"><i class="fas fa-check-circle"></i>
+                            <span class="txt">
+                                True & False
+                            </span>
+                        </button>
+
+
+                        <button type="button" class="btn btn-light"><i class="fas fa-file-alt"></i>
+                            <span class="txt">
+                                Text
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-2">
+
+    </div>
+
+
+</div>

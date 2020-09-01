@@ -1,0 +1,77 @@
+<div class="row" style="height: 80px;margin-top: 40px;">
+
+    <div class="col-lg-2">
+        <select class="form-control custom-select">
+            <option disabled>Sort</option>
+            <option value="" selected>Highest Rate</option>
+            <option value="">Most Relevant</option>
+            <option value="">Most ReViewd</option>
+            <option value="">Newest</option>
+        </select>
+    </div>
+
+    <div class="col-lg-10">
+        <div style="display:flex; justify-content: end;">
+            <div class="form-inline">
+                <input type="text" placeholder="Enter teacher name" class="form-control" #teacherName>
+                <button type="button" class="form-control" style="background-color: #007bff;color: white;"
+                    (click)="searchByTeacherName(teacherName.value)">
+                    <i class="fas fa-search"></i>
+                    Search
+                </button>
+
+                <button type="button" class="form-control" style="background-color: #007bff;color: white;"
+                    (click)="getAllCourseInStage()">
+                    <i class="fas fa-redo-alt"></i>
+                    Reset
+                </button>
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+<div *ngFor="let c of CourseList ">
+    <div class="row">
+
+        <div class="col-lg-2">
+            <img [src]="c.Course.Image" class="image image-fluid "
+                style="width: 100%;    height: 170px;border:2px solid lightgray;border-radius: 3px;">
+        </div>
+
+        <div class="col-lg-8">
+            <h5 style="color:#222;margin-bottom: .5rem;font-weight: 400;font-weight:700">
+                {{c.Course.Name}}
+            </h5>
+
+            <div style="height: 25px;overflow: hidden;"> {{c.Course.Description | slice:0:150}} </div>
+
+            Created By Prof .<span> {{c.TeacherName}}</span><br>
+
+            <i class="fas fa-star" style="color: #eb8a2f;"></i>
+            <i class="fas fa-star" style="color: #eb8a2f;"></i>
+            <i class="fas fa-star" style="color: #eb8a2f;"></i>
+            <i class="fas fa-star" style="color: #eb8a2f;"></i>
+            <i class="fas fa-star-half-alt" style="color: #eb8a2f;"></i><br>
+
+
+            113,902 reviews
+            80.5 total hours 400 lectures All Levels<br>
+<div  style="width: 35%; margin-top: 15px;" class=" d-flex justify-content-around border">
+            
+            <a role="button" routerLink="/courseinfo/{{c.Course.Id}}" class="btn-gold">Details</a>
+
+            <a role="button" routerLink="/takeexam/{{c.Course.Id}}" class="btn btn-danger">Take Exam</a>
+
+        </div>
+            <!--<a role="button" routerLink="/takeexam/{{c.Course.Id}}" class="btn btn-info">Details</a>-->
+
+
+
+            <!--<button type="button">best Seller</button>-->
+        </div>
+
+
+    </div>
+    <hr>
+</div>

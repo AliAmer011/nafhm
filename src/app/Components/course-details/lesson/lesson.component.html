@@ -1,0 +1,167 @@
+<h3  *ngIf="this._chapterSer.ChapterInfo.ID!=null" class="text-center">Chapter : {{this._chapterSer.ChapterInfo.Name}}</h3>
+
+<div class="form-group col-12" *ngIf="this._chapterSer.ChapterInfo.ID!=null">
+  <div class="form-group col-12">
+    <button class="btn-gold"  type="button" (click)="changeAddLessonForm()">Add Lesson</button>
+  </div>
+  <div class="form-group col-12" *ngIf="AddLessonForm" >
+    <h5 class="text-center">Add Lesson</h5>
+    <form class="form-group col-12" [formGroup]="LessonForm" (ngSubmit)="addLesson()" [formGroup]="LessonForm">
+      <div class="form-group col-12">
+          <label for="">Lesson Name</label>
+          <input #Name [(ngModel)]="lesson.Name" type="text" class="form-control" formControlName="Name">
+  
+          <div [hidden]="LessonForm.controls['Name'].valid || LessonForm.controls['Name'].untouched"
+              class="alert alert-warning">
+              Must be more than 3 Characters
+          </div>
+          
+      </div>
+      <div class="form-group col-12">
+          <label for="">Add Description</label>
+          <input #Description [(ngModel)]="lesson.Description" type="text" class="form-control" formControlName="Description">
+  
+          <div [hidden]="LessonForm.controls['Description'].valid || LessonForm.controls['Description'].untouched"
+              class="alert alert-warning">
+              Must be more than 3 Characters
+          </div>
+          
+      </div>
+      <br>
+      <div class="form-group col-12">
+        <button class="btn btn-outline-info"  type="submit">Add</button> 
+        <button class="btn btn-outline-danger" style="margin-left: 5px;" (click)="changeAddLessonForm()" type="button">Cancel</button>
+      </div>
+      
+  </form>
+  </div>
+
+  <div class="form-group col-12" *ngIf="EditLessonForm" >
+    <h5 class="text-center">Edit Lesson</h5>
+    <form class="form-group col-12"  [formGroup]="EditedLessonForm" (ngSubmit)="editLesson(EditedName.value,EditedDescription.value)" >
+      <div class="form-group col-12">
+          <label for="">Edit Lesson Name</label>
+          <input #EditedName [ngModel]="EditedLesson.Name" type="text" class="form-control" formControlName="Name">
+  
+          <div [hidden]="EditedLessonForm.controls['Name'].valid || EditedLessonForm.controls['Name'].untouched"
+              class="alert alert-warning">
+              Must be more than 3 Characters
+          </div>
+          
+      </div>
+      <div class="form-group col-12">
+          <label for="">Edit Description</label>
+          <input #EditedDescription [ngModel]="EditedLesson.Description" type="text" class="form-control" formControlName="Description">
+  
+          <div [hidden]="EditedLessonForm.controls['Description'].valid || LessonForm.controls['Description'].untouched"
+              class="alert alert-warning">
+              Must be more than 3 Characters
+          </div>
+          
+      </div>
+      <br>
+      <div class="form-group col-12">
+        <button class="btn-outline-success"  type="submit">Edit</button> 
+        <button class="btn-outline-danger" style="margin-left: 5px;" (click)="changeEditLessonForm(EditedLesson)" type="button">Cancel</button>
+      </div>
+      
+  </form>
+  </div>
+  
+</div>
+
+<!-- <form *ngIf="this._chapterSer.ChapterInfo.ID!=null" class="form-group col-12" (ngSubmit)="addLesson(Name.value , Description.value)" [formGroup]="LessonForm">
+    <div class="form-group col-4">
+        <label for="">Add Lesson </label>
+        <input #Name [(ngModel)]="lesson.Name" type="text" class="form-control" formControlName="Name">
+
+        <div [hidden]="LessonForm.controls['Name'].valid || LessonForm.controls['Name'].untouched"
+            class="alert alert-warning">
+            Must be more than 3 Characters
+        </div>
+        
+    </div>
+    <div class="form-group col-4">
+        <label for="">Add Description</label>
+        <input #Description [(ngModel)]="lesson.Description" type="text" class="form-control" formControlName="Description">
+
+        <div [hidden]="LessonForm.controls['Description'].valid || LessonForm.controls['Description'].untouched"
+            class="alert alert-warning">
+            Must be more than 3 Characters
+        </div>
+        
+    </div>
+    <button class="btn-primary"  type="submit">Add</button>
+</form> -->
+
+
+
+
+
+<!-- <table class="table" *ngIf="this._chapterSer.ChapterInfo.ID!=null"> 
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Material</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let lesson of LessonsList ;let i=index">
+        <th>{{lesson.Name}}</th>
+        <th>{{lesson.Description}}</th>
+        <td>
+          <a  class="btn btn-success">
+          <i class="fas fa-edit"></i> Material
+          </a>
+        </td>
+        <td>
+          <a class="btn btn-info">
+          <i class="fas fa-edit"></i> Edit
+          </a>
+        </td>
+        <td>
+          <a class="btn btn-danger">
+          <i class="fas fa-edit"></i> Delete
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table> -->
+
+
+  <h3 class="text-center" *ngIf="this._chapterSer.ChapterInfo.ID!=null">Chapter Lessons </h3>
+  <div class="row"  *ngFor="let Lesson of LessonsList ;let i=index" 
+      style="border-top: 0.7px solid #CDCDCD;border-bottom: 0.7px solid #CDCDCD;padding: 20px;border-radius:20px;">
+      <div class="col-lg-10 col-9 "
+              style="font-family: sf pro display,-apple-system,BlinkMacSystemFont,Roboto,segoe ui,Helvetica,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol;;">
+              <h6 style="color:#222;margin-bottom: .5rem;font-weight: 400;font-weight:700">
+                      {{Lesson.Name}}
+              </h6>
+              <div> {{Lesson.Description}} </div>
+            <br>
+              
+              <a role="button"  routerLink="/Material/lesson/{{Lesson.ID}}"
+                      class="btn btn-outline-info">View Material</a>
+  
+                     
+  
+              <!--<button type="button">best Seller</button>-->
+      </div>
+  
+      <div class="col-lg-2 col-3">
+              <a class="btn-gold" style="text-decoration:none;margin-bottom: 5px;"
+                    (click)="changeEditLessonForm(Lesson)">
+                      <i class=" fas fa-sync-alt"></i> </a><br>
+  
+              <a class="btn btn-danger" style="text-decoration:none"
+                      (click)="deleteLesson(Lesson)">
+                      <i class="far fa-trash-alt"></i>
+              </a>
+  
+      </div>
+  
+  </div>

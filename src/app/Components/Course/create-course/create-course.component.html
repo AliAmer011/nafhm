@@ -1,0 +1,119 @@
+
+  <form [formGroup]="CreateCourse" (ngSubmit)="createCourse()" class="mx-auto" style="width: 50%;">
+    <div class="form-horizontal">
+        <div class="mx-auto d-flex justify-content-center ">
+            <h3 class=" " style="margin-left: 10px;">Create Course </h3>
+
+            <i class="fab fa-amazon  " style="color:#ca9819;font-size:37px;margin-left: 10px; "></i>
+        </div>
+        <hr />
+        <!-- <hr style="background-color: #f1c75f;"/> -->
+
+        <div class="form-group">
+            <label for="">Course Code</label>
+            <input [(ngModel)]="course.Code" type="text" class="form-control" formControlName="Code">
+
+            <div 
+                class="alert alert-info">
+               eng for english . arabic for arabic. math for mathmatics..Must
+            </div>
+
+            <div [hidden]="CreateCourse.controls['Code'].valid || CreateCourse.controls['Code'].untouched"
+                class="alert alert-warning">
+                UserName is required and must be more Than 3 Chars
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="">Course Name</label>
+            <input [(ngModel)]="course.Name" type="text" class="form-control" formControlName="Name">
+
+            <div [hidden]="CreateCourse.controls['Name'].valid || CreateCourse.controls['Name'].untouched"
+                class="alert alert-warning">
+                UserName is required and must be more Than 3 Chars
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="">Description </label>
+            <input [(ngModel)]="course.Description" type="text" class="form-control" formControlName="Desc" maxlength="126">
+
+            <div [hidden]="CreateCourse.controls['Desc'].valid || CreateCourse.controls['Desc'].untouched"
+                class="alert alert-warning">
+                UserName is required and must be more Than 3 Chars
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="">Max Degree</label>
+            <input [(ngModel)]="course.MaxDegree" type="number" class="form-control"
+                formControlName="MaxDegree">
+
+            <div [hidden]="CreateCourse.controls['MaxDegree'].valid || CreateCourse.controls['MaxDegree'].untouched"
+                class="alert alert-warning">
+                not matched
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="">Min Degree</label>
+            <input [(ngModel)]="course.MinDegree" type="number" class="form-control"
+                formControlName="MinDegree">
+
+                <div [hidden]="CreateCourse.controls['MinDegree'].value <= CreateCourse.controls['MaxDegree'].value"
+                class="alert alert-warning">
+                  sorry Min degree should be less than max degree 
+                </div> 
+    
+
+            <div [hidden]="CreateCourse.controls['MinDegree'].valid || CreateCourse.controls['MinDegree'].untouched"
+                class="alert alert-warning">
+                not matched
+            </div>
+        </div>
+
+        
+
+        <div class="form-group">
+            <label for="">Semester</label>
+           
+            <select   class="form-control" [(ngModel)]="course.Semester"  formControlName="Semester"> 
+              <option value="1">
+                
+                     First
+             </option>
+
+             <option value="2"> 
+                
+                Second
+        </option>
+           </select> 
+   
+        </div>
+
+        <div class="form-group">
+            <label for="">Stage</label>
+           
+            <select   class="form-control" [(ngModel)]="course.StageID" formControlName="StageID" > 
+              <option *ngFor="let Stage of Stages" [value]="Stage.id">
+                
+                      {{Stage.name}}
+             </option>
+           </select> 
+   
+        </div>
+        <div class="form-group">
+            <label for="">Course Image</label><br>
+            <input type="file" (change)="readURL($event);">
+            
+       </div>
+       <!-- -->
+
+       <button class="btn mx-auto float-right" style="background-color: #ca9819;" [disabled]="!CreateCourse.valid ||CreateCourse.controls['MinDegree'].value > CreateCourse.controls['MaxDegree'].value"
+       type="submit">Create</button>
+
+
+    </div>
+</form>

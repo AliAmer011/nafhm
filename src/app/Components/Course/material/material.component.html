@@ -1,0 +1,154 @@
+<br>
+<div style=" width:50%; margin-left:20%">
+  <h1 style="text-align:center;"> Add A material</h1>
+  <form [formGroup]="CreatematerialFG" (ngSubmit)="Creatematerial() ">
+
+
+    <div class="form-group">
+      <label for=""> Description </label>
+      <br>
+      <input type="text" [(ngModel)]="material.Description" formControlName="Description"
+        style="width:50%;height:200px">
+    </div>
+
+
+    <div class="form-group">
+      <label for="">Upload material</label>
+      <br>
+      <input type="file" (change)="readURL($event);" formControlName="material">
+
+    </div>
+
+
+    <div class="progress" *ngIf="progress">
+      <div class="progress-bar" [style.width]="progress + '%'">{{progress}}%</div>
+    </div>
+    <br>
+
+    <button class="btn-gold mx-auto float-right " [disabled]="!CreatematerialFG.valid " type="submit">upload</button>
+
+
+
+  </form>
+
+  <br><br>
+  <table class="table " [hidden]="materialList.length<0">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Description</th>
+        <th scope="col">Preiview</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let mat of materialList ;let i=index">
+        <th scope="row">
+          <div class="drag-handle">
+            <ng-container [ngTemplateOutlet]="dragHandleTmpl">
+            </ng-container> {{i+1}}
+          </div>
+
+        </th>
+        <td>{{mat.Description }}</td>
+        <td>
+          <!-- //////////////////////////////////////////////////////////////////////////////////// -->
+
+
+          <ng-template #content let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Display material</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <div *ngIf="mat.Type.startsWith('image')" class="text-center" style="width: 100%; height: 100%;">
+                    <img src="{{mat.Name}}" style="width: 100%; height: 100%;" />
+                  </div>
+                  <div *ngIf="mat.Type.startsWith('video')" class="text-center" style="width: 100%; height: 100%;">
+
+                    <video width="450" height="350" controls>
+                      <source src="{{mat.Name}}" type="video/mp4" width="450" height="350">
+                      <source src="{{mat.Name}}" type="video/ogg" width="450" height="350">
+                    </video> </div>
+
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">ok</button>
+            </div>
+          </ng-template>
+
+          <!-- //////////////////////////////////////////////////////////////////////////////////// -->
+          <a *ngIf="mat.Type.startsWith('application')||mat.Type.startsWith('text') "
+            class="btn btn-lg btn-outline-primary" target="_blank" href="{{mat.Name}}"> Open </a>
+          <button *ngIf=" ! mat.Type.startsWith('application')" class="btn btn-lg btn-outline-primary"
+            (click)="open(content)">Display</button>
+
+        </td>
+        <td>
+          <!-- //////////////////////////////////delete modal//////////////////////////////////////// -->
+          <ng-template #Confirmdeletion let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Display material</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+
+                  Are you sure you want to delete this material !
+
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger"
+                (click)="deleteMaterial(mat.ID);modal.close('Save click')">Yes</button>
+              <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+            </div>
+          </ng-template>
+          <!-- /////////////////////////////////////////////////////////////////////////// -->
+          <button type="button" ngbAutofocus class="btn btn-danger"
+            (click)="openDeleteModal(Confirmdeletion)">Delete</button>
+
+        </td>
+
+
+        <td>
+          <button type="button" ngbAutofocus class="btn btn-primary" *ngIf="i>0" (click)="Up(i,i-1)"><i
+              class="fa fa-arrow-up" aria-hidden="true"></i>
+          </button>
+
+        </td>
+
+        <td>
+          <button type="button" ngbAutofocus class="btn btn-primary" *ngIf="i<materialList.length-1"
+            (click)="Dowm(i,i+1)"><i class="fa fa-arrow-down" aria-hidden="true"></i>
+          </button>
+
+        </td>
+
+
+      </tr>
+
+
+    </tbody>
+  </table>
+
+</div>
+
+<ng-template #dragHandleTmpl>
+  <svg class="bi bi-list handle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd"
+      d="M2.5 11.5A.5.5 0 013 11h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4A.5.5 0 013 7h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4A.5.5 0 013 3h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5z"
+      clip-rule="evenodd" />
+  </svg>
+</ng-template>

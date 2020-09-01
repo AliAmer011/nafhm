@@ -1,0 +1,249 @@
+<div class="container" style="padding-top: 20px;">
+
+
+        <div class="row mx-auto " style="width: 100%;">
+                <div class=" col-md-5 col-sm-4 ">
+                        <input class="form-control d-inline" style="width: 15%;" type="number"
+                                [(ngModel)]="CourseCount"> Items
+                        <a [routerLink]="['/createcourse']" class="btn-sm btn-gold">New Course</a>
+                </div>
+
+                <div class="col-md-7 col-sm-8  d-flex justify-content-md-end ">
+
+
+                </div>
+        </div>
+        <br>
+
+        <div class=" mx-auto  " style="width: 95%;padding:10px">
+
+                <div class="row" *ngFor="let Course of CoursesList ;let i=index"
+                        style="border-top: 0.7px solid #CDCDCD;border-bottom: 0.7px solid #CDCDCD;padding: 20px;border-radius:20px;">
+                        <div class="col-lg-3">
+                                <img [src]="Course.Image" class="image img-fluid img-thumbnail"
+                                        style="width: 100%;max-height: 170px;">
+
+                                <!--<button type="button" style=" position: absolute;top: 50%;right: 40%;">Details</button>-->
+                        </div>
+
+                        <div class="col-lg-8 col-10 "
+                                style="font-family: sf pro display,-apple-system,BlinkMacSystemFont,Roboto,segoe ui,Helvetica,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol;;">
+                                <h6 style="color:#222;margin-bottom: .5rem;font-weight: 400;font-weight:700">
+                                        {{Course.Name}}
+                                </h6>
+
+
+                                <div> {{Course.Description}} </div>
+                                <i class="fas fa-star" style="color: #eb8a2f;"></i>
+                                <i class="fas fa-star" style="color: #eb8a2f;"></i>
+                                <i class="fas fa-star" style="color: #eb8a2f;"></i>
+                                <i class="fas fa-star" style="color: #eb8a2f;"></i>
+                                <i class="fas fa-star-half-alt" style="color: #eb8a2f;"></i><br>
+                                113,902 reviews
+                                80.5 total hours 400 lectures All Levels<br>
+
+                                <div style="margin-top:15px" class="d-flex justify-content-around
+                                w-50">
+                                <a role="button" routerLink="/coursedetails/{{Course.Id}}"
+                                        class="btn-gold ">Details</a>
+
+                                <a role="button" routerLink="/exam/{{Course.Id}}"
+                                class="btn btn-danger">Add Question</a>
+
+                        </div>
+                                <!--<button type="button">best Seller</button>-->
+                        </div>
+
+                        <div class="col-lg-1 col-2">
+                                <a class="btn-gold" style="text-decoration:none;margin-bottom: 5px;"
+                                        routerLink="/UpdateCourse/{{Course.Id}}"
+                                        routerLinkActive="router-link-active">
+                                        <i class=" fas fa-sync-alt"></i> </a><br>
+
+                                <a class="btn btn-danger" style="text-decoration:none"
+                                        (click)="deleteCourse(confirmDelete,Course.Id)">
+                                        <i class="far fa-trash-alt"></i>
+                                </a>
+
+                        </div>
+
+                </div>
+
+
+        </div>
+
+</div>
+<ng-template #confirmDelete let-modal class="fade modal">
+        <div class="modal-header">
+                <h4 class="modal-title" id="modal-title">Course deletion</h4>
+                <!---->
+                <button type="button" class="close" (click)="modal.dismiss('Cross click')"
+                        aria-describedby="modal-title">
+                        <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+        <div class="modal-body" style="height: 150px;">
+                <p><strong>Are you sure you want to delete <span class="text-primary">This Course</span>
+                                </strong></p>
+                <p>All information associated to this user profile will be permanently deleted.
+                        <span class="text-danger">This operation can not be undone.</span>
+                </p>
+        </div>
+        <div class="modal-footer">
+                <!---->
+                <button type="button" class="btn btn-outline-secondary"
+                        (click)="modal.dismiss('cancel click')">Cancel</button>
+                <!---->
+                <button type="button" class="btn btn-danger" (click)="modal.close('Ok click')">Ok</button>
+        </div>
+
+</ng-template>
+
+<ng-template #editCourse let-modal class="fade modal">
+        <div class="modal-header">
+                <h4 class="modal-title" id="modal-title"><i class="fas fa-edit"></i> Edit Course</h4>
+                <!---->
+                <button type="button" class="close" (click)="modal.dismiss('Cross click')"
+                        aria-describedby="modal-title">
+                        <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+        <div class="modal-body">
+
+
+                <div class="">
+                        <div style="text-align: center;">
+                                <img [src]="Course.Image" class="image img-fluid img-thumbnail"
+                                        style="width: 150px;height: 150px;">
+                        </div>
+                        <br>
+
+
+                        <div class="form-group">
+                                <label for="courseName" style="margin-top: 5px;">
+                                        Course Name :
+                                </label>
+
+                                <input class="form-control" type="text" [(ngModel)]="Course.Name" id="courseName"
+                                        formControlName="Name">
+
+
+                        </div>
+
+
+
+                        <label for="maxDegree" style="margin-top: 5px;">
+                                Max Degree :
+                        </label>
+
+
+                        <input class="form-control" type="number" [(ngModel)]="Course.MaxDegree" id="maxDegree"
+                                formControlName="Desc">
+
+
+                        <label for="minDegree" style="margin-top: 5px;">
+                                Min Degree :
+                        </label>
+
+
+                        <input class="form-control" type="number" [(ngModel)]="Course.MinDegree" id="minDegree"
+                                formControlName="MinDegree">
+
+                        <label for="semester" style="margin-top: 5px;">
+                                Semester :
+                        </label>
+
+
+                        <select id="inputState" class="form-control custom-select" [(ngModel)]="Course.Semester"
+                                formControlName="Semester">
+                                <option selected>First</option>
+                                <option>Second</option>
+                        </select>
+
+                        <div class="col-md-7 col-sm-8  d-flex justify-content-md-end ">
+
+                                <label for="semester" style="margin-top: 5px;">
+                                        Stage :
+                                </label>
+
+                        </div>
+                </div>
+                <br>
+
+                <select id="inputState" class="form-control custom-select" [(ngModel)]="Course.StageID"
+                        formControlName="StageID">
+                        <option selected>Stage 1</option>
+                        <option>Stage 2</option>
+                        <option>Stage 3</option>
+                        <option>Stage 4</option>
+                        <option>Stage 5</option>
+                        <option>Stage 6</option>
+                        <option>Stage 7</option>
+                        <option>Stage 8</option>
+                        <option>Stage 9</option>
+
+                </select>
+
+                <div class="col-lg-8 col-10 "
+                        style="font-family: sf pro display,-apple-system,BlinkMacSystemFont,Roboto,segoe ui,Helvetica,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol;;">
+                        <h6 style="color:#222;margin-bottom: .5rem;font-weight: 400;font-weight:700">
+                                {{Course.Name}}
+                        </h6>
+
+
+                        <div> {{Course.Description}} </div>
+                        <i class="fas fa-star" style="color: #eb8a2f;"></i>
+                        <i class="fas fa-star" style="color: #eb8a2f;"></i>
+                        <i class="fas fa-star" style="color: #eb8a2f;"></i>
+                        <i class="fas fa-star" style="color: #eb8a2f;"></i>
+                        <i class="fas fa-star-half-alt" style="color: #eb8a2f;"></i><br>
+                        113,902 reviews
+                        80.5 total hours 400 lectures All Levels
+
+
+                        <!--<button type="button">best Seller</button>-->
+                </div>
+
+                <div class="col-lg-1 col-2">
+                        <a href="#" class="btn btn-outline-primary" style="text-decoration:none;margin-bottom: 5px;">
+                                <i class="fas fa-sync-alt"></i> </a><br>
+
+                        <!--Image-->
+                        <label for="semester" style="margin-top: 5px;">
+                                Course Image
+                        </label>
+
+                </div>
+
+        </div>
+
+
+        <div class="custom-file">
+                <input type="file" class="custom-file-input" id="validatedCustomFile" (change)="readURL($event);"
+                        required>
+                <label class="custom-file-label" for="validatedCustomFile">Choose
+                        file...</label>
+                <div class="invalid-feedback">Example invalid custom file feedback</div>
+        </div>
+
+
+
+        <label for="semester" style="margin-top: 5px;">
+                Course Description
+        </label>
+
+        <textarea class="form-control" rows="4" cols="50" name="comment" form="usrform" [(ngModel)]="Course.Description"
+                formControlName="Desc" maxlength="126" placeholder="Enter text here...">
+        </textarea>
+
+
+        <div class="modal-footer">
+                <!---->
+                <button type="button" class="btn btn-outline-secondary"
+                        (click)="modal.dismiss('cancel click')">Cancel</button>
+                <!---->
+                <button type="button" class="btn btn-danger" (click)="modal.close('Ok click')">Ok</button>
+        </div>
+        
+
+</ng-template>

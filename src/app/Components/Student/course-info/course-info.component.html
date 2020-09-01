@@ -1,0 +1,101 @@
+<div style="background-color: white;">
+    <div class="row" style="display:flex;align-items: center; background-color: #f7f8fa; height: 44px;">
+        <div class="col-lg-1"></div>
+        <div>
+            <span style="font-weight: 700;color: #686f7a;font-size: 13px;padding: 12px;">
+                Stage 1
+            </span>
+            <span style="color: #686f7a;font-size: 13px;padding: 12px;font-weight: 400; "> > Math</span>
+        </div>
+    </div>
+    <div class="row" style="background-color: #29303b;">
+        <div class="col-lg-1">
+
+        </div>
+
+        <div class="col-lg-8" style="color: white;padding-bottom: 50px;padding-top: 30px;">
+            <h1>{{courseInfo.Course['Name']}}</h1>
+
+            <div style="font-size: 21px;line-height: 27px;">
+                {{courseInfo.Course['Description']}}
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <img [src]="courseInfo.Course.Image" style="width: 100%; height: auto;padding-top: 20px;">
+        </div>
+
+        <div class="col-lg-1">
+
+        </div>
+
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-9">
+            <div *ngFor="let chapters of courseDatails; let i = index" (click)="toggle(i)" style="margin-bottom: 3px;">
+                <div style="background-color: #f9f9f9;border: solid 1px #e8e9eb;
+        padding: 10px 30px 10px 22px;cursor: pointer;">
+
+                    <span style="color: #007791;font-size: 18px;font-weight: 700;" id="{{'expanded' + i}}"> + </span>
+                    <!--<span style="color: #007791;font-size: 18px;font-weight: 700;"> - </span>-->
+
+                    <span style="font-size: 15px;padding-left: 8px;padding-right: 10px; 
+                color: #505763;font-weight: 700;">
+                        {{chapters.Name}}
+                    </span>
+                </div>
+                <div *ngFor="let lessons of chapters.Lessons" id="{{'details' + i}}"
+                    style="padding: 10px 30px 10px 48px;border: solid 1px #e8e9eb;display: none;">
+                    <span style="color: #003845;text-decoration: none;cursor: pointer;
+            font-weight: 400;font-size: 14px;">{{lessons.Name}}</span>
+
+                    <div *ngFor="let mat of sort(lessons.Materials)" id="{{'details' + i}}"
+                        style="padding: 10px 30px 10px 48px;border: solid 1px #e8e9eb">
+
+                        <ng-template #content let-modal>
+                            <div class="modal-header">
+                              <h4 class="modal-title" id="modal-basic-title">Display material</h4>
+                              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <form>
+                                <div class="form-group">
+                                  <div *ngIf="mat.Type.startsWith('image')"class="text-center" style="width: 100%; height: 100%;">
+                                    <img src="{{mat.Name}}" style="width: 100%; height: 100%;"/>
+                                  </div>
+                                  <div *ngIf="mat.Type.startsWith('video')"class="text-center" style="width: 100%; height: 100%;">
+                  
+                                  <video width="450" height="350" controls >
+                                      <source src="{{mat.Name}}" type="video/mp4" width="450" height="350">
+                                      <source src="{{mat.Name}}" type="video/ogg" width="450" height="350">
+                                    </video> </div>
+                  
+                                </div>
+                              </form>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">ok</button>
+                            </div>
+                          </ng-template>
+
+                          <a *ngIf="mat.Type.startsWith('application')||mat.Type.startsWith('text') " class="btn btn-sm btn-outline-primary" target="_blank" href="{{mat.Name}}"> Open </a> 
+                          <button *ngIf=" ! mat.Type.startsWith('application')" class="btn btn-sm btn-outline-primary" (click)="open(content)">Display</button> 
+                  
+                        <span style="color: #003845;text-decoration: none;
+            font-weight: 500;font-size: 14px;"> {{mat.Description}}</span>
+
+                    </div>
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

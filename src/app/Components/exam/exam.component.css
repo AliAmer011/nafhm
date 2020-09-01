@@ -1,0 +1,46 @@
+.questions {
+  /*background-color: ;#008272*/
+  background-color: white;
+  border:2px solid lightgray
+}
+
+button {
+  height: 40px;
+  min-width: 120px;
+  margin-left: 3px;
+  border: 1px solid #ffffff;
+}
+
+.txt {
+  font-size: 14px;
+  text-align: left;
+  margin-right: 20px;
+}
+
+.questionTypes{
+    display: inline-block;
+    padding: 10px;
+}
+
+.MCQuestions{
+    background-color: #f4f4f4;
+    margin-top: 20px;
+    padding-left: 30px;
+    padding: 20px;
+    margin: 15px;
+    display: none;
+
+}
+
+.form-icon{
+  margin-left: 5px;
+  font-size: 16px;
+  font-style: normal;
+  line-height: 16px;
+  padding: 10px;
+                                            
+}
+
+.form-icon:active{
+  border:1px dashed black
+}
